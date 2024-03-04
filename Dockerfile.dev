@@ -1,0 +1,19 @@
+# base image
+
+FROM node:alpine
+
+
+#download dependencies
+WORKDIR /app
+
+copy package.json .
+RUN npm set strict-ssl false
+RUN npm config set ca=""
+RUN npm install
+COPY . .
+ENV NODE_ENV=development
+ENV CHOKIDAR_USEPOLLING=true
+ENV WATCHPACK_POLLING=true
+# Command on startup
+
+CMD ["npm","run","start"]
